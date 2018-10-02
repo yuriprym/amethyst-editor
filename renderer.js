@@ -119,6 +119,15 @@ ipcRenderer.on('data', (event, data) => {
                     this.logs.shift();
                 }
                 this.logs.push(log);
+            },
+            entityHasTags: function(entity) {
+                for (component of this.components) {
+                    if (component.data[entity] === null) {
+                        return true;
+                    }
+                }
+
+                return false
             }
         };
         game.update(data.data);

@@ -88,7 +88,7 @@
           </div>
 
           <div v-if="activeGame().selectedEntity != null" class="column">
-            <div class="tags">
+            <div v-if="activeGame().entityHasTags(activeGame().selectedEntity)" class="tags">
               <div
                 v-for="componentType in activeGame().components"
                 v-if="componentType.data[activeGame().selectedEntity] === null"
