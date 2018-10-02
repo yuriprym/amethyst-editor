@@ -30,13 +30,15 @@ let timeouts = {};
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
-    // TODO: Only do this for dev builds.
-    let installExtension = require('electron-devtools-installer')
-      installExtension.default(installExtension.VUEJS_DEVTOOLS)
-        .then(() => {})
-        .catch(err => {
-            console.log('Unable to install `vue-devtools`: \n', err)
-        });
+    // Install the electron devtools for developoment builds.
+    if (!app.isPackaged) {
+        let installExtension = require('electron-devtools-installer')
+          installExtension.default(installExtension.VUEJS_DEVTOOLS)
+            .then(() => {})
+            .catch(err => {
+                console.log('Unable to install `vue-devtools`: \n', err)
+            });
+    }
 
     mainWindow = createWindow();
 
