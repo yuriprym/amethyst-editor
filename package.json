@@ -30,15 +30,6 @@
     "publish": {
       "provider": "s3",
       "bucket": "dank-swamp-toad"
-    },
-    "mac": {
-      "publish": "s3"
-    },
-    "linux": {
-      "publish": "s3"
-    },
-    "win": {
-      "publish": "s3"
     }
   }
 }
