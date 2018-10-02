@@ -4,9 +4,7 @@
   "description": "An experimental editor for the Amethyst game engine",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder --publish always"
+    "start": "electron ."
   },
   "repository": "https://github.com/randomPoison/amethyst-editor",
   "keywords": [],

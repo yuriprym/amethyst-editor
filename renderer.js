@@ -1,6 +1,5 @@
 const { ipcRenderer } = require('electron');
 const VueJsonPretty = require('vue-json-pretty').default;
-const { default: installExtension, VUEJS_DEVTOOLS } = require('electron-devtools-installer');
 const clamp = require('clamp');
 
 const MAX_LOGS = 500;
