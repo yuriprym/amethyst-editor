@@ -26,9 +26,9 @@ script:
         -v ~/.cache/electron:/root/.cache/electron \
         -v ~/.cache/electron-builder:/root/.cache/electron-builder \
         electronuserland/builder:wine \
-        /bin/bash -c "npx electron-builder --linux --win"
+        /bin/bash -c "npm install && npx electron-builder --linux --win"
     else
-      npx electron-builder --mac
+      npm install && npx electron-builder --mac
     fi
 
 before_cache:
