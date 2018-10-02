@@ -8,6 +8,7 @@ matrix:
     services: docker
     language: generic
 script:
+- env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|STRIP|BUILD_'
 - |
   if [ "$TRAVIS_OS_NAME" == "linux" ]; then
     docker run --rm \
