@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Amethyst Editor</title>
 
-    <!-- Use Bulma for CSS -->
+    <!-- Use Bulma for CSS. -->
     <link href="node_modules/bulma/css/bulma.css" rel="stylesheet">
+
+    <!-- Custom styles for the app. -->
+    <link href="style.css" rel="stylesheet">
 
     <!-- development version, includes helpful console warnings -->
     <script src="node_modules/vue/dist/vue.js"></script>
   </head>
 
   <body>
-    <div id="app" class="">
+    <div id="app">
       <!-- Help message to display when no games are connected. -->
       <section
         v-if="gameIds.length == 0"
@@ -30,73 +33,69 @@
         <div class="hero-foot"></div>
       </section>
 
-      <!-- Tabs for selecting the active game. -->
-      <div v-if="gameIds.length > 1" class="tabs is-boxed is-medium">
-        <ul>
-          <li
-            v-for="(gameId, index) in gameIds"
-            v-bind:class="{ 'is-active': index === activeGameIndex }"
-          >
-            <a v-on:click="selectGame(index)">{{ gameId }}</a>
-          </li>
-        </ul>
-      </div>
-
       <!-- Currently selected game. -->
-      <section v-if="gameIds.length > 0" class="section">
+      <div v-if="gameIds.length > 0" class="full-screen">
 
-        <!-- Tabs bar at the top of the page. -->
-        <div class="tabs is-centered is-toggle">
+        <!--
+          Tabs for selecting the active game. Auto-hides until there is more than one connected game.
+        -->
+        <div v-if="gameIds.length > 1" class="header tabs is-boxed is-medium">
           <ul>
             <li
-              v-for="(tab, index) in tabs"
-              v-bind:class="{ 'is-active': activeGame().activeTab === index }"
+              v-for="(gameId, index) in gameIds"
+              v-bind:class="{ 'is-active': index === activeGameIndex }"
             >
-              <a v-on:click="selectTab(index)">{{ tab }}</a>
+              <a v-on:click="selectGame(index)">{{ gameId }}</a>
             </li>
           </ul>
         </div>
 
         <!-- Entities tab. -->
-        <div v-if="activeGame().activeTab === 0" class="columns">
-          <div class="column is-one-fifth">
-            <nav class="panel">
-              <h2 class="panel-heading">Entities</h2>
-                <a
-                  v-for="entity in activeGame().entities"
-                  v-bind:class="{ 'is-active': entity.id === activeGame().selectedEntity }"
-                  v-on:click="selectEntity(entity.id)"
-                  class="panel-block"
-                >
-                  <span class="panel-icon">{{ entity.id }}</span>
+        <div v-if="activeGame().activeTab === 0" class="main">
+          <!-- List of entities. -->
+          <nav class="vertical-panel">
+            <h2 class="panel-heading">Entities</h2>
+            <div class="scrollable">
+              <a
+                v-for="entity in activeGame().entities"
+                v-bind:class="{ 'is-active': entity.id === activeGame().selectedEntity }"
+                v-on:click="selectEntity(entity.id)"
+                class="panel-block"
+              >
+                <span class="panel-icon">{{ entity.id }}</span>
 
-                  <div class="tags">
-                    <span
-                      v-for="component in activeGame().components"
-                      v-if="component.data[entity.id] !== undefined"
-                      v-bind:class="{
-                        'is-primary': component.data[entity.id] !== null,
-                        'is-info': component.data[entity.id] === null,
-                      }"
-                      class="tag"
-                    >
-                      {{ component.name }}
-                    </span>
-                  </div>
-                </a>
-            </nav>
-          </div>
+                <div class="tags">
+                  <span
+                    v-for="component in activeGame().components"
+                    v-if="component.data[entity.id] !== undefined"
+                    v-bind:class="{
+                      'is-primary': component.data[entity.id] !== null,
+                      'is-info': component.data[entity.id] === null,
+                    }"
+                    class="tag"
+                  >
+                    {{ component.name }}
+                  </span>
+                </div>
+              </a>
+            </div>
+          </nav>
 
-          <div v-if="activeGame().selectedEntity != null" class="column">
-            <div v-if="activeGame().entityHasTags(activeGame().selectedEntity)" class="tags">
-              <div
+          <!-- Components for the selected entity. -->
+          <div v-if="activeGame().selectedEntity != null" class="vertical-panel scrollable">
+
+            <!-- Marker components on the current entity. -->
+            <div v-if="activeGame().entityHasTags(activeGame().selectedEntity)" class="tags markers">
+              <span
                 v-for="componentType in activeGame().components"
                 v-if="componentType.data[activeGame().selectedEntity] === null"
                 class="tag is-info is-large"
               >
                 {{ componentType.name }}
-              </div>
+              </span>
             </div>
+
+            <!-- Regular components on the current entity. -->
             <div
               v-for="componentType in activeGame().components"
               v-if="componentType.data[activeGame().selectedEntity] != null"
@@ -111,7 +110,7 @@
         </div>
 
         <!-- Resources tab. -->
-        <div v-if="activeGame().activeTab === 1">
+        <div v-if="activeGame().activeTab === 1" class="main">
           <div v-for="resource in activeGame().resources" class="box content">
             <h3 class="title is-3">{{ resource.name }}</h3>
             <vue-json-pretty :data="resource.data"></vue-json-pretty>
@@ -119,12 +118,24 @@
         </div>
 
         <!-- Log tab. -->
-        <div v-if="activeGame().activeTab === 2">
+        <div v-if="activeGame().activeTab === 2" class="main">
           <div v-for="log in activeGame().logs">
             [{{ log.level }}] [{{ log.target }}] {{ log.message }}
           </div>
         </div>
-      </section>
+
+        <!-- Tabs bar for selecting the current view. -->
+        <div class="bottom-bar tabs is-centered is-toggle">
+          <ul>
+            <li
+              v-for="(tab, index) in tabs"
+              v-bind:class="{ 'is-active': activeGame().activeTab === index }"
+            >
+              <a v-on:click="selectTab(index)">{{ tab }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <script>
