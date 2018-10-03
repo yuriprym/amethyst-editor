@@ -51,7 +51,7 @@
         </div>
 
         <!-- Entities tab. -->
-        <div v-if="activeGame().activeTab === 0" class="main">
+        <div v-if="activeGame().activeTab === 0" class="main horizontal-panel">
           <!-- List of entities. -->
           <nav class="vertical-panel entities-panel">
             <h2 class="panel-heading">Entities</h2>
@@ -107,10 +107,12 @@
                 ></vue-json-pretty>
             </div>
           </div>
+
+          <div v-if="activeGame().selectedEntity === null" class="vertical-panel"></div>
         </div>
 
         <!-- Resources tab. -->
-        <div v-if="activeGame().activeTab === 1" class="main">
+        <div v-if="activeGame().activeTab === 1" class="main vertical-panel scrollable">
           <div v-for="resource in activeGame().resources" class="box content">
             <h3 class="title is-3">{{ resource.name }}</h3>
             <vue-json-pretty :data="resource.data"></vue-json-pretty>
