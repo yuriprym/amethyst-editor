@@ -120,9 +120,9 @@
         </div>
 
         <!-- Log tab. -->
-        <div v-if="activeGame().activeTab === 2" class="main">
-          <div v-for="log in activeGame().logs">
-            [{{ log.level }}] [{{ log.target }}] {{ log.message }}
+        <div v-if="activeGame().activeTab === 2" class="main vertical-panel scrollable">
+          <div v-for="log in activeGame().logs" class="log-line">
+            <span class="tag">{{ log.level }}</span> <span class="tag">{{ log.target }}</span> {{ log.message }}
           </div>
         </div>
 

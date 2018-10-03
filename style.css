@@ -61,3 +61,8 @@ body {
 .markers {
   display: block;
 }
+
+.log-line {
+  padding: 5px;
+  border-bottom: 1px solid #dbdbdb;
+}
