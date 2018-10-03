@@ -51,6 +51,10 @@ body {
   padding: 5px;
 }
 
+.entities-panel {
+  flex-basis: 0;
+}
+
 .markers {
   display: block;
 }
