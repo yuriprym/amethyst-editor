@@ -1,15 +1,10 @@
-matrix:
-  include:
-  - os: osx
-    osx_image: xcode9.4
-    language: node_js
-    node_js: '10'
-  - os: linux
-    language: node_js
-    node_js: '10'
-  - os: windows
-    language: node_js
-    node_js: '10'
+os:
+- osx
+- linux
+- windows
+
+language: node_js
+node_js: "10"
 
 script:
 - npm install
