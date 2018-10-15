@@ -8,7 +8,7 @@ where applicable.
 
 ## [Unreleased]
 
-## [0.2.0]
+## [0.2.0] - 2018-10-14
 
 ### Added
 
