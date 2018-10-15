@@ -8,6 +8,8 @@ where applicable.
 
 ## [Unreleased]
 
+## [0.2.0]
+
 ### Added
 
 * Switch to raw buffers in order to support reassembling split messages. ([#31])
@@ -27,5 +29,6 @@ where applicable.
 
 [#16]: https://github.com/randomPoison/amethyst-editor/pull/16
 
-[Unreleased]: https://github.com/randomPoison/amethyst-editor/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/randomPoison/amethyst-editor/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/randomPoison/amethyst-editor/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/randomPoison/amethyst-editor/compare/43fa22e89a643ee3140741a75ef996fc956d24be...v0.1.0
