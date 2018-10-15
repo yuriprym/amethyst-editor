@@ -5,24 +5,19 @@ matrix:
     language: node_js
     node_js: '10'
   - os: linux
-    services: docker
-    language: generic
+    language: node_js
+    node_js: '10'
+  - os: windows
+    language: node_js
+    node_js: '10'
+
 script:
-- env | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS=|TRAVIS_|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_' > env.tmp
-- |
-  if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-    docker run --rm \
-      --env-file env.tmp \
-      -v ${PWD}:/project \
-      -v ~/.cache/electron:/root/.cache/electron \
-      -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-      electronuserland/builder:wine \
-      /bin/bash -c "npm install && npx electron-builder --linux --win --publish always"
-  else
-    npm install && npx electron-builder --mac --publish always
-  fi
+- npm install
+- npx electron-builder --publish always
+
 before_cache:
 - rm -rf $HOME/.cache/electron-builder/wine
+
 env:
   global:
   - secure: hvTl0uiAg/zarmyDpvU03TmCqrbNZWFZVUWNKBnthkVvGOcQ5RrcYy6q4ATWzXUKMLn85zqcaEmH/wrDz9LpjAQRGXoegJMgj7soFySbS0QpX79+E7b4GsL0s/gYcMUUFVaYXrrNyKxdS6kivAjY3K7XMC/ge1Pn/97CRo+MPrS1nEKCW6/u/RCrxCa9cUlKzBhQ5ts9RjasgGrWuMMJVh/KTrM0MLoFMipajbWt4IWxAHuVQpJSjn4EXFNEph16cfBGEC0RtILhpDreTJhtWwLxeOfb1ZGGL0s6ixMh30mgD7sftVfF3Xu3ZKYbdTvmgpXylSqsOyA8D+SaI/iLfJ3Q0oxWkk5TfQrHm2abmDaLhB143vtSZfJ5Osma28GJvqXhI2iI5xlgkXS1bs5oP8m5kCot50+rr0Lw2iGVcf/Kr4j3hS96dfBw7z3gk+RlQDF6MD0pRLj25EZxpm5G1rmjPBJDZrmwa9w+XtJfXIeJJfbQqQvL2WEvH1ejOvnntzeL4zIQIylRYDLsT62wWu7BdXgY0Veg2LBzSVzjO+WC1lmCIAV3xnM2ZMf8T9qxSbZtb4pdhGufTHFMFjX9Z7m3UnmSHEa+pnY9jy5bBKeq425FPQ4tTBHOWsyCM8zGa+L2Lw3CxBiof1zk2IqL7nC+PykSld9ImuQ0dfXUCTw=
