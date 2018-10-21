@@ -1,14 +1,13 @@
 const { ipcRenderer } = require('electron');
-const VueJsonPretty = require('vue-json-pretty').default;
 const clamp = require('clamp');
+
+// Load custom components.
+require('./components/data-display.js');
 
 const MAX_LOGS = 500;
 
 let app = new Vue({
     el: '#app',
-    components: {
-        VueJsonPretty,
-    },
 
     data: {
         // Capture data about the Electron process so that we can display it in the app if we want.
@@ -86,6 +85,7 @@ ipcRenderer.on('data', (event, data) => {
         app.gameIds.push(data.id);
 
         let game = {
+            gameId: data.id,
             entities: [],
             components: [],
             resources: [],
@@ -93,6 +93,7 @@ ipcRenderer.on('data', (event, data) => {
             rawComponents: null,
             selectedEntity: null,
             activeTab: 0,
+
             update: function(data) {
                 if (data.entities != null) {
                     this.entities = data.entities;
@@ -122,12 +123,14 @@ ipcRenderer.on('data', (event, data) => {
                     }
                 }
             },
+
             insertLog: function(log) {
                 if (this.logs.length >= MAX_LOGS) {
                     this.logs.shift();
                 }
                 this.logs.push(log);
             },
+
             entityHasTags: function(entity) {
                 for (component of this.components) {
                     if (component.data[entity] === null) {
@@ -136,7 +139,17 @@ ipcRenderer.on('data', (event, data) => {
                 }
 
                 return false
-            }
+            },
+
+            editResource: function(id, data) {
+                console.log(`Edited resource ${id} in game ${this.gameId}:`, data);
+
+                ipcRenderer.send('update-resource', {
+                    gameId: this.gameId,
+                    id: id,
+                    data: data,
+                });
+            },
         };
         game.update(data.data);
 
