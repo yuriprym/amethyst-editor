@@ -10,6 +10,14 @@ where applicable.
 
 ### Added
 
+* :tada: Support for editing resources! :tada: ([#34])
+
+[#34]: https://github.com/randomPoison/amethyst-editor/pull/34
+
+## [0.2.0] - 2018-10-14
+
+### Added
+
 * Switch to raw buffers in order to support reassembling split messages. ([#31])
 * Support for receiving partial data from the game. ([#33])
 
@@ -27,5 +35,6 @@ where applicable.
 
 [#16]: https://github.com/randomPoison/amethyst-editor/pull/16
 
-[Unreleased]: https://github.com/randomPoison/amethyst-editor/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/randomPoison/amethyst-editor/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/randomPoison/amethyst-editor/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/randomPoison/amethyst-editor/compare/43fa22e89a643ee3140741a75ef996fc956d24be...v0.1.0
