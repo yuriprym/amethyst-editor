@@ -150,6 +150,17 @@ ipcRenderer.on('data', (event, data) => {
                     data: data,
                 });
             },
+
+            editComponent: function(id, entity, data) {
+                console.log(`Edited component ${id} on entity ${entity} in game ${this.gameId}:`, data);
+
+                ipcRenderer.send('update-component', {
+                    gameId: this.gameId,
+                    id: id,
+                    entity: entity,
+                    data: data,
+                });
+            },
         };
         game.update(data.data);
 

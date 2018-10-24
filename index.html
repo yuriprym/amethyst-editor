@@ -104,6 +104,7 @@
               <h3 class="title is-3">{{ componentType.name }}</h3>
                 <data-display
                   :data="componentType.data[activeGame().selectedEntity]"
+                v-on:submit="activeGame().editComponent(componentType.name, activeGame().selectedEntity, $event)"
                 ></data-display>
             </div>
           </div>

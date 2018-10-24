@@ -150,6 +150,23 @@ ipcMain.on('update-resource', (event, arg) => {
     ipc.server.emit(socket, JSON.stringify(message) + '\f');
 });
 
+ipcMain.on('update-component', (event, arg) => {
+    let gameId = arg.gameId;
+    if (!(gameId in sockets)) {
+        return;
+    }
+    let socket = sockets[gameId];
+
+    var message = {
+        type: 'ComponentUpdate',
+        id: arg.id,
+        entity: arg.entity,
+        data: arg.data,
+    };
+    console.log("Sending:", message);
+    ipc.server.emit(socket, JSON.stringify(message) + '\f');
+});
+
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
     // On OS X it is common for applications and their menu bar
