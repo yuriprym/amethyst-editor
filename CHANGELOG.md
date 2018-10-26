@@ -11,8 +11,10 @@ where applicable.
 ### Added
 
 * :tada: Support for editing resources! :tada: ([#34])
+* :sparkle: Support for editing components! :sparkle: ([#39])
 
 [#34]: https://github.com/randomPoison/amethyst-editor/pull/34
+[#39]: https://github.com/randomPoison/amethyst-editor/pull/39
 
 ## [0.2.0] - 2018-10-14
 
