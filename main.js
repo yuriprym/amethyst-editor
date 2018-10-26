@@ -135,35 +135,12 @@ function onGameMessage(data, socket) {
 // to the main process so that it can be forwarded to the appropriate game
 // process. This method looks up the socket address for the target game, and
 // then sends it to the game via the IPC server.
-ipcMain.on('update-resource', (event, arg) => {
-    let gameId = arg.gameId;
+ipcMain.on('update-data', (event, arg) => {
+    let {gameId, ...message} = arg;
     if (!(gameId in sockets)) {
         return;
     }
     let socket = sockets[gameId];
-
-    var message = {
-        type: 'ResourceUpdate',
-        id: arg.id,
-        data: arg.data,
-    };
-    ipc.server.emit(socket, JSON.stringify(message) + '\f');
-});
-
-ipcMain.on('update-component', (event, arg) => {
-    let gameId = arg.gameId;
-    if (!(gameId in sockets)) {
-        return;
-    }
-    let socket = sockets[gameId];
-
-    var message = {
-        type: 'ComponentUpdate',
-        id: arg.id,
-        entity: arg.entity,
-        data: arg.data,
-    };
-    console.log("Sending:", message);
     ipc.server.emit(socket, JSON.stringify(message) + '\f');
 });
 

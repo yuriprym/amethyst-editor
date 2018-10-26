@@ -144,21 +144,23 @@ ipcRenderer.on('data', (event, data) => {
             editResource: function(id, data) {
                 console.log(`Edited resource ${id} in game ${this.gameId}:`, data);
 
-                ipcRenderer.send('update-resource', {
+                ipcRenderer.send('update-data', {
                     gameId: this.gameId,
                     id: id,
                     data: data,
+                    type: 'ResourceUpdate',
                 });
             },
 
             editComponent: function(id, entity, data) {
                 console.log(`Edited component ${id} on entity ${entity} in game ${this.gameId}:`, data);
 
-                ipcRenderer.send('update-component', {
+                ipcRenderer.send('update-data', {
                     gameId: this.gameId,
                     id: id,
                     entity: entity,
                     data: data,
+                    type: 'ComponentUpdate'
                 });
             },
         };
