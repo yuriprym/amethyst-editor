@@ -58,8 +58,8 @@
             <div class="scrollable">
               <a
                 v-for="entity in activeGame().entities"
-                v-bind:class="{ 'is-active': entity.id === activeGame().selectedEntity }"
-                v-on:click="selectEntity(entity.id)"
+                v-bind:class="{ 'is-active': activeGame().selectedEntity != null && entity.id === activeGame().selectedEntity.id }"
+                v-on:click="selectEntity(entity)"
                 class="panel-block"
               >
                 <span class="panel-icon">{{ entity.id }}</span>
@@ -88,7 +88,7 @@
             <div v-if="activeGame().entityHasTags(activeGame().selectedEntity)" class="tags markers">
               <span
                 v-for="componentType in activeGame().components"
-                v-if="componentType.data[activeGame().selectedEntity] === null"
+                v-if="componentType.data[activeGame().selectedEntity.id] === null"
                 class="tag is-info is-large"
               >
                 {{ componentType.name }}
@@ -98,12 +98,12 @@
             <!-- Regular components on the current entity. -->
             <div
               v-for="componentType in activeGame().components"
-              v-if="componentType.data[activeGame().selectedEntity] != null"
+              v-if="componentType.data[activeGame().selectedEntity.id] != null"
               class="box"
             >
               <h3 class="title is-3">{{ componentType.name }}</h3>
                 <data-display
-                  :data="componentType.data[activeGame().selectedEntity]"
+                  :data="componentType.data[activeGame().selectedEntity.id]"
                 v-on:submit="activeGame().editComponent(componentType.name, activeGame().selectedEntity, $event)"
                 ></data-display>
             </div>
