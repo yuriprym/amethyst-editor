@@ -28,25 +28,25 @@ let app = new Vue({
     },
 
     methods: {
-        selectGame: function(index) {
+        selectGame: function (index) {
             this.activeGameIndex = index;
         },
 
-        selectEntity: function(entity) {
+        selectEntity: function (entity) {
             let gameId = this.gameIds[this.activeGameIndex];
             this.games[gameId].selectedEntity = entity;
         },
 
-        selectTab: function(index) {
+        selectTab: function (index) {
             let gameId = this.gameIds[this.activeGameIndex];
             this.games[gameId].activeTab = index;
         },
 
-        activeGameId: function() {
+        activeGameId: function () {
             return this.gameIds[this.activeGameIndex];
         },
 
-        activeGame: function() {
+        activeGame: function () {
             return this.games[this.activeGameId()];
         },
     }
@@ -94,7 +94,7 @@ ipcRenderer.on('data', (event, data) => {
             selectedEntity: null,
             activeTab: 0,
 
-            update: function(data) {
+            update: function (data) {
                 if (data.entities != null) {
                     this.entities = data.entities;
                 }
@@ -124,14 +124,14 @@ ipcRenderer.on('data', (event, data) => {
                 }
             },
 
-            insertLog: function(log) {
+            insertLog: function (log) {
                 if (this.logs.length >= MAX_LOGS) {
                     this.logs.shift();
                 }
                 this.logs.push(log);
             },
 
-            entityHasTags: function(entity) {
+            entityHasTags: function (entity) {
                 for (component of this.components) {
                     if (component.data[entity] === null) {
                         return true;
@@ -141,7 +141,7 @@ ipcRenderer.on('data', (event, data) => {
                 return false
             },
 
-            editResource: function(id, data) {
+            editResource: function (id, data) {
                 console.log(`Edited resource ${id} in game ${this.gameId}:`, data);
 
                 ipcRenderer.send('update-data', {
@@ -152,7 +152,7 @@ ipcRenderer.on('data', (event, data) => {
                 });
             },
 
-            editComponent: function(id, entity, data) {
+            editComponent: function (id, entity, data) {
                 console.log(`Edited component ${id} on entity ${entity} in game ${this.gameId}:`, data);
 
                 ipcRenderer.send('update-data', {
@@ -160,9 +160,19 @@ ipcRenderer.on('data', (event, data) => {
                     id: id,
                     entity: entity,
                     data: data,
-                    type: 'ComponentUpdate'
+                    type: 'ComponentUpdate',
                 });
             },
+
+            addEntity: function () {
+                console.log(`Creating entity in game ${this.gameId}`);
+
+                ipcRenderer.send('update-data', {
+                    gameId: this.gameId,
+                    amount: 1,
+                    type: 'CreateEntities',
+                });
+            }
         };
         game.update(data.data);
 
