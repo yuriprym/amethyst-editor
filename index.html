@@ -51,7 +51,7 @@
         <nav class="vertical-panel entities-panel">
           <h2 class="panel-heading">
             Entities
-            <button v-on:click="activeGame().addEntity()"></button>
+            <button v-on:click="activeGame().createEntity()"></button>
           </h2>
           <div class="scrollable">
             <a v-for="entity in activeGame().entities" v-bind:class="{ 'is-active': activeGame().selectedEntity != null && entity.id === activeGame().selectedEntity.id }"

@@ -164,7 +164,7 @@ ipcRenderer.on('data', (event, data) => {
                 });
             },
 
-            addEntity: function () {
+            createEntity: function () {
                 console.log(`Creating entity in game ${this.gameId}`);
 
                 ipcRenderer.send('update-data', {
