@@ -68,7 +68,7 @@
                   {{ component.name }}
                 </span>
               </div>
-              <button class="delete"></button>
+              <button class="delete" v-on:click="activeGame().destroyEntity(entity)"></button>
             </a>
           </div>
         </nav>

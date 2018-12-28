@@ -172,7 +172,17 @@ ipcRenderer.on('data', (event, data) => {
                     amount: 1,
                     type: 'CreateEntities',
                 });
-            }
+            },
+
+            destroyEntity: function (entity) {
+                console.log(`Destroying entity ${entity} in game ${this.gameId}`);
+
+                ipcRenderer.send('update-data', {
+                    gameId: this.gameId,
+                    entities: [entity],
+                    type: 'DestroyEntities',
+                });
+            },
         };
         game.update(data.data);
 
