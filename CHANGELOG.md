@@ -8,11 +8,15 @@ where applicable.
 
 ## [Unreleased]
 
+## [0.3.0]
+
 ### Added
 
 * :tada: Support for editing resources! :tada: ([#34])
+* :sparkle: Support for editing components! :sparkle: ([#39])
 
 [#34]: https://github.com/randomPoison/amethyst-editor/pull/34
+[#39]: https://github.com/randomPoison/amethyst-editor/pull/39
 
 ## [0.2.0] - 2018-10-14
 
@@ -35,6 +39,7 @@ where applicable.
 
 [#16]: https://github.com/randomPoison/amethyst-editor/pull/16
 
-[Unreleased]: https://github.com/randomPoison/amethyst-editor/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/randomPoison/amethyst-editor/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/randomPoison/amethyst-editor/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/randomPoison/amethyst-editor/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/randomPoison/amethyst-editor/compare/43fa22e89a643ee3140741a75ef996fc956d24be...v0.1.0
