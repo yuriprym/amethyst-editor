@@ -140,7 +140,7 @@ ipcRenderer.on('data', (event, data) => {
 
                 return false
             },
-
+ 
             editResource: function(id, data) {
                 console.log(`Edited resource ${id} in game ${this.gameId}:`, data);
 
@@ -163,7 +163,20 @@ ipcRenderer.on('data', (event, data) => {
                     type: 'ComponentUpdate'
                 });
             },
+
+            RemoveComponent: function(id,entity,data){
+                console.log(`Removing the component ${id} on entity ${entity} in game ${this.gameId}:`,data);
+
+                ipcRenderer.splice('remove-data', {
+                    gameId: this.gameId,
+                    id: id,
+                    entity: entity,
+                    data: data,
+                    type: 'RemovingComponent'
+                });
+            },
         };
+            
         game.update(data.data);
 
         Vue.set(app.games, data.id, game);
